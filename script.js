@@ -127,6 +127,9 @@ window.addEventListener('DOMContentLoaded', () => {
     downloadLink.style.display = 'inline-block';
 
     // Scroll to the canvas to show the user their card
-    canvas.scrollIntoView({ behavior: 'smooth' });
+    // Use requestAnimationFrame to ensure the browser has laid out the element before scrolling
+    requestAnimationFrame(() => {
+      canvas.scrollIntoView({ behavior: 'smooth' });
+    });
   }
 });
