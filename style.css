@@ -1,0 +1,116 @@
+/* General reset and direction */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  direction: rtl;
+  font-family: 'Noto Kufi Arabic', sans-serif;
+  overflow-x: hidden;
+  background-color: #000;
+}
+
+/* Full‑screen fixed background using our generated image */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/input-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  animation: fadein 4s ease-in-out;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Container for input form and result */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 100px 20px;
+  text-align: center;
+  color: #ffffff;
+}
+
+h1 {
+  font-family: 'Aref Ruqaa', cursive;
+  font-size: 52px;
+  margin-bottom: 20px;
+  color: #f7da5d;
+}
+
+.instruction {
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+input[type='text'] {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 28px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-family: 'Aref Ruqaa', cursive;
+  color: #002c5f;
+}
+
+button {
+  margin-top: 25px;
+  padding: 15px 40px;
+  font-size: 28px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #f7da5d;
+  color: #002c5f;
+  font-family: 'Aref Ruqaa', cursive;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(247, 218, 93, 0.7);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+canvas {
+  margin-top: 50px;
+  width: 100%;
+  max-width: 600px;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#download-link {
+  display: block;
+  margin-top: 25px;
+  font-size: 22px;
+  color: #f7da5d;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#download-link:hover {
+  color: #fff;
+}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>بطاقة تهنئة رمضان</title>
+    <!-- Import Google Fonts for Arabic calligraphy and display text -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Noto+Kufi+Arabic:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Background image container -->
+    <div class="background"></div>
+    <!-- Main form container -->
+    <div class="form-container">
+      <h1>إصنع بطاقة تهنئة رمضان</h1>
+      <p class="instruction">أدخل اسمك أدناه ليظهر على البطاقة</p>
+      <input
+        type="text"
+        id="name-input"
+        placeholder="أدخل الاسم هنا"
+        maxlength="25"
+        dir="rtl"
+      />
+      <button id="generate-btn">إنشاء البطاقة</button>
+      <!-- Canvas for the generated greeting card -->
+      <canvas
+        id="result-canvas"
+        width="1080"
+        height="1920"
+        hidden
+      ></canvas>
+      <!-- Download link appears after generation -->
+      <a id="download-link" style="display: none" download="Ramadan_greeting.png"></a>
+    </div>
+    <!-- Append a version query string to the script to avoid caching issues -->
+    <!-- Inline the script here to ensure the latest version is always loaded -->
+    <script>
+      // Preload fonts and assets then draw the greeting card when the user submits
+      window.addEventListener('DOMContentLoaded', () => {
+        const nameInput = document.getElementById('name-input');
+        const generateBtn = document.getElementById('generate-btn');
+        const canvas = document.getElementById('result-canvas');
+        const ctx = canvas.getContext('2d');
+        const downloadLink = document.getElementById('download-link');
+
+        // Preload background
+        const background = new Image();
+        background.src = 'assets/greeting-bg.jpg';
+
+        generateBtn.addEventListener('click', async () => {
+          const name = nameInput.value.trim();
+          if (!name) {
+            alert('الرجاء إدخال الاسم أولاً');
+            return;
+          }
+          const trimmedName = name.substring(0, 30);
+          await drawCard(trimmedName);
+        });
+
+        async function drawCard(name) {
+          canvas.hidden = false;
+          downloadLink.style.display = 'none';
+
+          await new Promise((resolve) => {
+            if (background.complete) {
+              resolve();
+            } else {
+              background.onload = () => resolve();
+              background.onerror = () => resolve();
+            }
+          });
+
+          await document.fonts.ready;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+          // At this point fonts are ready and background drawn.
+          // Start positioning content below the decorative lantern area using a base offset.
+
+          if ('direction' in ctx) {
+            ctx.direction = 'rtl';
+          }
+
+          // Use a dynamic base offset so that all text appears below the decorative lanterns
+          const baseY = canvas.height * 0.33; // skip roughly the top 33% of the card
+
+          // Brand/company name
+           ctx.fillStyle = '#F7DA5D';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.font = 'bold 44px "Aref Ruqaa"';
+         ctx.fillText('', canvas.width / 2, baseY);
+
+         //  Main greeting
+          ctx.font = 'bold 96px "Aref Ruqaa"';
+          ctx.fillStyle = '#F7DA5D';
+          const greetingY = baseY + 120;
+        ctx.fillText('', canvas.width / 2, greetingY);
+
+          // Decorative divider below greeting
+         const dividerY = greetingY + 100;
+          ctx.strokeStyle = 'rgba(247, 218, 93, 0.0)';
+          ctx.lineWidth = 2;
+         ctx.beginPath();
+       ctx.moveTo(canvas.width * 0.15, dividerY);
+       ctx.lineTo(canvas.width * 0.85, dividerY);
+         ctx.stroke();
+
+          // Congratulatory message lines
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = '32px "Noto Kufi Arabic"';
+          ctx.textAlign = 'center';
+          const messageLines = [
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            ''
+         ];
+          let messageY = dividerY + 30;
+         const messageLineHeight = 50;
+          messageLines.forEach((line) => {
+            ctx.fillText(line, canvas.width / 2, messageY);
+            messageY += messageLineHeight;
+          });
+
+          // Another divider below the message
+          const afterMessageDividerY = messageY + 20;
+         ctx.beginPath();
+          ctx.moveTo(canvas.width * 0.2, afterMessageDividerY);
+          ctx.lineTo(canvas.width * 0.8, afterMessageDividerY);
+          ctx.strokeStyle = 'rgba(247, 218, 93, 0.6)';
+         ctx.stroke();
+
+          // User name placed below the message divider
+          // Choose a dynamic font size based on the length of the name to ensure it fits well
+          let nameFontSize = 110;
+          ctx.font = `bold ${nameFontSize}px "Noto Kufi Arabic"`;
+          let measured = ctx.measureText(name);
+          // Reduce font size if text width exceeds 80% of the canvas width
+          if (measured.width > canvas.width * 0.7) {
+            nameFontSize = Math.floor(nameFontSize * (canvas.width * 0.7) / measured.width);
+            ctx.font = `bold ${nameFontSize}px "Noto Kufi Arabic"`;
+          }
+          ctx.fillStyle = '#f0e1a3';
+          ctx.textBaseline = 'top';
+          const nameY = afterMessageDividerY + 40;
+          ctx.fillText(name, canvas.width / 2, nameY);
+
+          // Sponsor names at bottom
+          ctx.font = '26px "Noto Kufi Arabic"';
+          ctx.fillStyle = '#FFFFFF';
+          ctx.textBaseline = 'bottom';
+          ctx.fillText('', canvas.width / 2, canvas.height - 70);
+
+          const dataURL = canvas.toDataURL('image/png');
+          downloadLink.href = dataURL;
+          downloadLink.download = `Ramadan_greeting_${Date.now()}.png`;
+          downloadLink.textContent = 'تحميل البطاقة';
+          downloadLink.style.display = 'inline-block';
+          canvas.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    </script>
+  </body>
+</html>
