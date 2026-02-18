@@ -48,6 +48,13 @@ body {
   color: #ffffff;
 }
 
+.logo {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 30px;
+}
+
 h1 {
   font-family: 'Aref Ruqaa', cursive;
   font-size: 52px;
