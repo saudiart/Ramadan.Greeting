@@ -12,22 +12,34 @@ body {
   direction: rtl;
   font-family: 'Noto Kufi Arabic', sans-serif;
   overflow-x: hidden;
-  background-color: #000;
+  background-color: #061126;
 }
 
-/* Full‑screen fixed background using our generated image */
+/* Full‑screen fixed background using a blurred version of the card image */
 .background {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('assets/input-bg.png');
+  background-image: url('greeting-bg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
-  animation: fadein 4s ease-in-out;
+  filter: blur(10px) brightness(0.48) saturate(1.1);
+  transform: scale(1.1);
+  animation: slowZoom 18s ease-in-out infinite alternate;
+}
+
+.background-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(247, 218, 93, 0.2), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(64, 190, 255, 0.18), transparent 45%),
+    linear-gradient(165deg, rgba(2, 18, 46, 0.55), rgba(2, 13, 34, 0.82));
 }
 
 @keyframes fadein {
@@ -39,13 +51,24 @@ body {
   }
 }
 
+@keyframes slowZoom {
+  from {
+    transform: scale(1.08) translateY(-10px);
+  }
+  to {
+    transform: scale(1.16) translateY(10px);
+  }
+}
+
 /* Container for input form and result */
 .form-container {
+  position: relative;
   max-width: 600px;
   margin: 0 auto;
   padding: 100px 20px;
   text-align: center;
   color: #ffffff;
+  animation: slideUp 900ms ease-out;
 }
 
 .logo {
@@ -63,6 +86,17 @@ h1 {
   color: #f7da5d;
 }
 
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .instruction {
   font-size: 22px;
   margin-bottom: 30px;
@@ -77,9 +111,18 @@ input[type='text'] {
   outline: none;
   font-family: 'Aref Ruqaa', cursive;
   color: #002c5f;
+  background: rgba(255, 255, 255, 0.95);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+input[type='text']:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 4px rgba(247, 218, 93, 0.35), 0 8px 25px rgba(0, 0, 0, 0.25);
 }
 
 button {
+  position: relative;
+  overflow: hidden;
   margin-top: 25px;
   padding: 15px 40px;
   font-size: 28px;
@@ -90,6 +133,28 @@ button {
   color: #002c5f;
   font-family: 'Aref Ruqaa', cursive;
   transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: -120%;
+  left: -40%;
+  width: 45%;
+  height: 300%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transform: rotate(20deg);
+  animation: shimmer 3.4s linear infinite;
+}
+
+@keyframes shimmer {
+  0%,
+  65% {
+    left: -45%;
+  }
+  100% {
+    left: 120%;
+  }
 }
 
 button:hover {
@@ -121,4 +186,48 @@ canvas {
 
 #download-link:hover {
   color: #fff;
+}
+
+.floating-lights {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-lights span {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(247, 218, 93, 0.95), rgba(247, 218, 93, 0));
+  filter: blur(0.6px);
+  animation: floatUp 9s linear infinite;
+  opacity: 0;
+}
+
+.floating-lights span:nth-child(1) { left: 7%; animation-delay: 0s; }
+.floating-lights span:nth-child(2) { left: 16%; animation-delay: 1.8s; }
+.floating-lights span:nth-child(3) { left: 29%; animation-delay: 0.7s; }
+.floating-lights span:nth-child(4) { left: 43%; animation-delay: 3.1s; }
+.floating-lights span:nth-child(5) { left: 57%; animation-delay: 2.2s; }
+.floating-lights span:nth-child(6) { left: 70%; animation-delay: 1.2s; }
+.floating-lights span:nth-child(7) { left: 82%; animation-delay: 2.8s; }
+.floating-lights span:nth-child(8) { left: 93%; animation-delay: 0.3s; }
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  85% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.2);
+    opacity: 0;
+  }
 }
