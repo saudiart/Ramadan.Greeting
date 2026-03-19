@@ -1,6 +1,6 @@
 # Project Improvement Roadmap
 
-This document proposes practical ways to improve **Ramadan.Greeting**, prioritized by effort and impact.
+This document proposes practical ways to improve **Eid.Al.Fitr.Greeting**, prioritized by effort and impact.
 
 ## 1) Product & UX improvements (high impact, low-medium effort)
 
