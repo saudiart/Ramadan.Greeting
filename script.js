@@ -1,5 +1,5 @@
 // script.js
-// This file contains all the logic to generate the personalised Ramadan greeting
+// This file contains all the logic to generate the personalised Eid Al Fitr greeting
 // card using the HTML canvas. It listens for a click on the generate button,
 // draws the card with the selected background and overlays the relevant text
 // elements including the user's name, then exposes a download link.
@@ -71,10 +71,10 @@ window.addEventListener('DOMContentLoaded', () => {
     ctx.font = 'bold 44px "Aref Ruqaa"';
     ctx.fillText('سات للعطور والجمال', canvas.width / 2, 430);
 
-    // Draw the main greeting "Ramadan Mubarak" below the brand text
+    // Draw the main greeting "Eid Al Fitr Mubarak" below the brand text
     ctx.font = 'bold 96px "Aref Ruqaa"';
     ctx.fillStyle = '#F7DA5D';
-    ctx.fillText('رمضان مبارك', canvas.width / 2, 600);
+    ctx.fillText('عيد الفطر المبارك', canvas.width / 2, 600);
 
     // Decorative divider line beneath the greeting
     ctx.strokeStyle = 'rgba(247, 218, 93, 0.6)';
@@ -90,7 +90,7 @@ window.addEventListener('DOMContentLoaded', () => {
     ctx.textAlign = 'center';
     const messageLines = [
       'تتقدم شركة سات للعطور والجمال بأسمى آيات التهاني والتبريكات',
-      'بحلول شهر رمضان المبارك، سائلين المولى عز وجل',
+      'بحلول عيد الفطر السعيد، سائلين المولى عز وجل',
       'أن يتقبل منا ومنكم صالح الأعمال'
     ];
     let messageY = 730;
@@ -122,7 +122,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Prepare download link for the generated image
     const dataURL = canvas.toDataURL('image/png');
     downloadLink.href = dataURL;
-    downloadLink.download = `Ramadan_greeting_${Date.now()}.png`;
+    downloadLink.download = `Eid_Al_Fitr_greeting_${Date.now()}.png`;
     downloadLink.textContent = 'تحميل البطاقة';
     downloadLink.style.display = 'inline-block';
 

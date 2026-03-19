@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>بطاقة تهنئة رمضان</title>
+    <title>بطاقة تهنئة عيد الفطر</title>
     <!-- Import Google Fonts for Arabic calligraphy and display text -->
     <link
       href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Noto+Kufi+Arabic:wght@400;700&display=swap"
@@ -28,7 +28,7 @@
     <!-- Main form container -->
     <div class="form-container">
       <img src="sat logo final.png" alt="SAT Logo" class="logo">
-      <h1>إصنع بطاقة تهنئة رمضان</h1>
+      <h1>إصنع بطاقة تهنئة عيد الفطر</h1>
       <p class="instruction">أدخل اسمك أدناه ليظهر على البطاقة</p>
       <input
         type="text"
@@ -46,7 +46,7 @@
         hidden
       ></canvas>
       <!-- Download link appears after generation -->
-      <a id="download-link" style="display: none" download="Ramadan_greeting.png"></a>
+      <a id="download-link" style="display: none" download="Eid_Al_Fitr_greeting.png"></a>
     </div>
     <!-- Append a version query string to the script to avoid caching issues -->
     <!-- Inline the script here to ensure the latest version is always loaded -->
@@ -127,17 +127,9 @@
           ctx.font = '32px "Noto Kufi Arabic"';
           ctx.textAlign = 'center';
           const messageLines = [
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            ''
-            
+            'تهنئكم شركة تقنية الفنون السعودية',
+            'بحلول عيد الفطر السعيد',
+            'كل عام وأنتم بخير'
          ];
           let messageY = dividerY + 30;
          const messageLineHeight = 50;
@@ -154,9 +146,9 @@
           ctx.strokeStyle = 'rgba(247, 218, 93, 0)';
          ctx.stroke();
 
-          // User name placed below the message divider
+          // User name placed below the Eid greeting message
           // Choose a dynamic font size based on the length of the name to ensure it fits well
-          let nameFontSize = 110;
+          let nameFontSize = 96;
           ctx.font = `bold ${nameFontSize}px "Noto Kufi Arabic"`;
           let measured = ctx.measureText(name);
           // Reduce font size if text width exceeds 80% of the canvas width
@@ -164,7 +156,7 @@
             nameFontSize = Math.floor(nameFontSize * (canvas.width * 0.7) / measured.width);
             ctx.font = `bold ${nameFontSize}px "Noto Kufi Arabic"`;
           }
-          ctx.fillStyle = '#f0e1a3';
+          ctx.fillStyle = '#FFFFFF';
           ctx.textBaseline = 'top';
           const nameY = afterMessageDividerY + 40;
           ctx.fillText(name, canvas.width / 2, nameY);
@@ -177,7 +169,7 @@
 
           const dataURL = canvas.toDataURL('image/png');
           downloadLink.href = dataURL;
-          downloadLink.download = `Ramadan_greeting_${Date.now()}.png`;
+          downloadLink.download = `Eid_Al_Fitr_greeting_${Date.now()}.png`;
           downloadLink.textContent = 'تحميل البطاقة';
           downloadLink.style.display = 'inline-block';
           canvas.scrollIntoView({ behavior: 'smooth' });

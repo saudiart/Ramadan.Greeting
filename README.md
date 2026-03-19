@@ -1,5 +1,5 @@
-# Ramadan.Greeting
-Create a Ramadan Greeting Card for anyone in seconds
+# Eid.Al.Fitr.Greeting
+Create an Eid Al Fitr greeting card for anyone in seconds
 
 
 ## Improvement ideas
